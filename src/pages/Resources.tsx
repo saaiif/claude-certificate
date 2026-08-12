@@ -7,10 +7,11 @@ import { SectionHeading } from '../components/ui'
 
 type CertFilter = 'all' | CertId | 'general'
 
-type Tab = 'links' | 'saved' | 'concepts' | 'traps' | 'checklist' | 'refs'
+type Tab = 'links' | 'important' | 'saved' | 'concepts' | 'traps' | 'checklist' | 'refs'
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'links', label: 'Curated Links' },
+  { id: 'important', label: 'Important' },
   { id: 'saved', label: 'Saved' },
   { id: 'concepts', label: 'Core Concepts' },
   { id: 'traps', label: 'Common Traps' },
@@ -210,7 +211,7 @@ function ResourceCard({ r, saved, onToggle }: { r: (typeof RESOURCES)[number]; s
       target="_blank"
       rel="noopener noreferrer"
       className={`card group relative flex flex-col p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-cardHover ${
-        saved ? 'ring-2 ring-clay-400 dark:ring-clay-500' : ''
+        saved || r.important ? 'ring-2 ring-clay-400 dark:ring-clay-500' : ''
       }`}
     >
       <StarButton
@@ -227,6 +228,7 @@ function ResourceCard({ r, saved, onToggle }: { r: (typeof RESOURCES)[number]; s
           {r.category}
         </span>
         {r.official && <span className="chip bg-moss-400/10 text-moss-600 dark:text-moss-400">Official</span>}
+        {r.important && <span className="chip bg-clay-600 text-white">Important</span>}
         {saved && <span className="chip bg-clay-500 text-white">Saved</span>}
         {isGeneral ? (
           <span className="chip bg-ink-100 text-ink-500 dark:bg-ink-800 dark:text-ink-300">All tracks</span>
@@ -376,6 +378,8 @@ export function Resources() {
   const [tab, setTab] = useState<Tab>('links')
   const { saved, toggle, isSaved } = useSavedResources()
   const savedResources = RESOURCES.filter((r) => saved.includes(r.id))
+  const importantResources = RESOURCES.filter((r) => r.important)
+  const importantCount = importantResources.length
 
   return (
     <div className="container-page py-14 sm:py-16">
@@ -398,12 +402,30 @@ export function Resources() {
           >
             {t.label}
             {t.id === 'saved' && saved.length > 0 ? ` (${saved.length})` : ''}
+            {t.id === 'important' && importantCount > 0 ? ` (${importantCount})` : ''}
           </button>
         ))}
       </div>
 
       <div className="mt-8">
         {tab === 'links' && <LinksBrowser isSaved={isSaved} toggle={toggle} />}
+
+        {tab === 'important' && (
+          importantResources.length > 0 ? (
+            <div className="mt-2 grid gap-4 md:grid-cols-2">
+              {importantResources.map((r) => (
+                <ResourceCard key={r.id} r={r} saved={isSaved(r.id)} onToggle={toggle} />
+              ))}
+            </div>
+          ) : (
+            <div className="card mt-2 p-10 text-center">
+              <p className="font-serif text-lg font-bold text-ink-800 dark:text-cream-50">No important resources yet</p>
+              <p className="mt-1 text-sm text-ink-500 dark:text-ink-300">
+                The curator hasn’t flagged any resources as important. Check back later.
+              </p>
+            </div>
+          )
+        )}
 
         {tab === 'saved' && (
           savedResources.length > 0 ? (

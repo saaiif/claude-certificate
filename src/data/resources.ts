@@ -11,6 +11,7 @@ export const RESOURCES: Resource[] = [
       'The single most useful documents in your prep. Each track has a v1.0 blueprint with domain weights and sample questions — treat them as your checklist.',
     tags: ['blueprint', 'official', 'free', 'must-read'],
     official: true,
+    important: true,
   },
   {
     id: 'res-cert-faq',
@@ -22,6 +23,7 @@ export const RESOURCES: Resource[] = [
       'Everything about partner eligibility, registration via the Partner Academy, fees, retake waiting periods (14/30/90 days), and the 12-month validity window.',
     tags: ['faq', 'official', 'retakes'],
     official: true,
+    important: true,
   },
   {
     id: 'res-pearson',
@@ -55,6 +57,7 @@ export const RESOURCES: Resource[] = [
       'The canonical reference for models, the Messages API, tool use, caching, and the Claude ecosystem. Bookmark the search page — you will live here.',
     tags: ['docs', 'official', 'reference'],
     official: true,
+    important: true,
   },
   {
     id: 'res-messages-api',
@@ -77,6 +80,7 @@ export const RESOURCES: Resource[] = [
       'When caching works, how cache_control works, and the ~90% input-cost saving on cached reads. Appears across all tracks.',
     tags: ['caching', 'cost', 'official'],
     official: true,
+    important: true,
   },
   {
     id: 'res-claude-code-docs',
@@ -88,6 +92,7 @@ export const RESOURCES: Resource[] = [
       'CLAUDE.md hierarchy, hooks, slash commands, skills, subagents, and CI/CD usage. Claude Code is 20% of Architect Foundations — do not skip this.',
     tags: ['claude-code', 'official', 'architect'],
     official: true,
+    important: true,
   },
   {
     id: 'res-agent-sdk',
@@ -110,6 +115,7 @@ export const RESOURCES: Resource[] = [
       'The MCP spec: tools, resources, prompts, transports, and how servers/clients work. Read the tools and resources sections at minimum.',
     tags: ['mcp', 'official', 'protocol'],
     official: true,
+    important: true,
   },
   {
     id: 'res-mcp-announce',
@@ -131,6 +137,7 @@ export const RESOURCES: Resource[] = [
       'The source of the workflow-vs-agent taxonomy that the Architect exams lean on heavily. Read it twice.',
     tags: ['agents', 'workflows', 'architecture'],
     official: true,
+    important: true,
   },
   {
     id: 'res-context-eng',

@@ -47,6 +47,7 @@ export interface Resource {
   description: string
   tags: string[]
   official?: boolean
+  important?: boolean
 }
 
 export type TipCategory = 'Study' | 'Exam Day' | 'Strategy' | 'Gotchas'
