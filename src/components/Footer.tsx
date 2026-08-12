@@ -29,7 +29,7 @@ export function Footer() {
       </div>
       <div className="border-t border-ink-100 dark:border-ink-800">
         <p className="container-page py-5 text-center text-xs text-ink-400 dark:text-ink-400">
-          Independent study resource. Not affiliated with Anthropic. Content based on public exam guides and personal experience.
+          © 2026 Saif M. Independent study resource. Not affiliated with Anthropic. Content based on public exam guides and personal experience.
         </p>
       </div>
     </footer>

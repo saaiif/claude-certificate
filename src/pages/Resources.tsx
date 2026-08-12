@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { RESOURCES, RESOURCE_CATEGORIES } from '../data/resources'
 import { CERTIFICATIONS } from '../data/certs'
@@ -7,10 +7,11 @@ import { SectionHeading } from '../components/ui'
 
 type CertFilter = 'all' | CertId | 'general'
 
-type Tab = 'links' | 'concepts' | 'traps' | 'checklist' | 'refs'
+type Tab = 'links' | 'saved' | 'concepts' | 'traps' | 'checklist' | 'refs'
 
 const TABS: { id: Tab; label: string }[] = [
   { id: 'links', label: 'Curated Links' },
+  { id: 'saved', label: 'Saved' },
   { id: 'concepts', label: 'Core Concepts' },
   { id: 'traps', label: 'Common Traps' },
   { id: 'checklist', label: 'Revision Checklist' },
@@ -153,7 +154,127 @@ const CERT_FILTERS: { value: CertFilter; label: string }[] = [
   { value: 'general', label: 'General' },
 ]
 
-function LinksBrowser() {
+const SAVED_KEY = 'ccert.savedResources'
+
+function useSavedResources() {
+  const [saved, setSaved] = useState<string[]>(() => {
+    try {
+      const raw = localStorage.getItem(SAVED_KEY)
+      return raw ? (JSON.parse(raw) as string[]) : []
+    } catch {
+      return []
+    }
+  })
+
+  useEffect(() => {
+    try {
+      localStorage.setItem(SAVED_KEY, JSON.stringify(saved))
+    } catch {
+      /* ignore quota / private mode errors */
+    }
+  }, [saved])
+
+  const toggle = (id: string) =>
+    setSaved((s) => (s.includes(id) ? s.filter((x) => x !== id) : [...s, id]))
+  const isSaved = (id: string) => saved.includes(id)
+
+  return { saved, toggle, isSaved }
+}
+
+function StarButton({ saved, onClick }: { saved: boolean; onClick: (e: React.MouseEvent) => void }) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      aria-label={saved ? 'Remove from saved' : 'Save this resource'}
+      aria-pressed={saved}
+      className={`absolute right-3 top-3 flex h-8 w-8 items-center justify-center rounded-full transition-colors ${
+        saved
+          ? 'bg-clay-500 text-white'
+          : 'bg-ink-100 text-ink-400 hover:bg-ink-200 hover:text-clay-600 dark:bg-ink-800 dark:text-ink-300 dark:hover:text-clay-300'
+      }`}
+    >
+      <svg viewBox="0 0 24 24" fill={saved ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2" className="h-4 w-4">
+        <path strokeLinecap="round" strokeLinejoin="round" d="M12 3l2.6 5.3 5.9.9-4.2 4.1 1 5.8L12 17l-5.3 2.8 1-5.8L3.5 9.2l5.9-.9L12 3z" />
+      </svg>
+    </button>
+  )
+}
+
+function ResourceCard({ r, saved, onToggle }: { r: (typeof RESOURCES)[number]; saved: boolean; onToggle: (id: string) => void }) {
+  const isGeneral = r.cert === 'general'
+  const certMeta = isGeneral ? null : CERTIFICATIONS.find((c) => c.id === r.cert)
+  return (
+    <a
+      href={r.url}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={`card group relative flex flex-col p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-cardHover ${
+        saved ? 'ring-2 ring-clay-400 dark:ring-clay-500' : ''
+      }`}
+    >
+      <StarButton
+        saved={saved}
+        onClick={(e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          onToggle(r.id)
+        }}
+      />
+
+      <div className="flex flex-wrap items-center gap-2 pr-10">
+        <span className="chip bg-cream-200 text-ink-600 dark:bg-ink-800 dark:text-ink-200">
+          {r.category}
+        </span>
+        {r.official && <span className="chip bg-moss-400/10 text-moss-600 dark:text-moss-400">Official</span>}
+        {saved && <span className="chip bg-clay-500 text-white">Saved</span>}
+        {isGeneral ? (
+          <span className="chip bg-ink-100 text-ink-500 dark:bg-ink-800 dark:text-ink-300">All tracks</span>
+        ) : certMeta ? (
+          <span
+            className={`chip ${
+              certMeta.accent === 'clay'
+                ? 'bg-clay-100 text-clay-700 dark:bg-clay-900/40 dark:text-clay-300'
+                : 'bg-moss-400/10 text-moss-600 dark:text-moss-400'
+            }`}
+          >
+            {certMeta.code}
+          </span>
+        ) : null}
+      </div>
+
+      <h3 className="mt-3 flex items-start justify-between gap-2 font-serif text-lg font-bold leading-snug text-ink-900 group-hover:text-clay-600 dark:text-cream-50 dark:group-hover:text-clay-300">
+        {r.title}
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          className="mt-1 h-4 w-4 shrink-0 text-ink-300 transition-all group-hover:translate-x-0.5 group-hover:text-clay-500 dark:text-ink-500"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M7 17 17 7M9 7h8v8" />
+        </svg>
+      </h3>
+
+      <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-600 dark:text-ink-300">
+        {r.description}
+      </p>
+
+      <div className="mt-4 flex flex-wrap gap-1.5">
+        {r.tags.map((t) => (
+          <span
+            key={t}
+            className="rounded-md bg-cream-200 px-2 py-0.5 text-[11px] font-medium text-ink-500 dark:bg-ink-800 dark:text-ink-300"
+          >
+            #{t}
+          </span>
+        ))}
+      </div>
+    </a>
+  )
+}
+
+function LinksBrowser({ isSaved, toggle }: { isSaved: (id: string) => boolean; toggle: (id: string) => void }) {
   const [query, setQuery] = useState('')
   const [cert, setCert] = useState<CertFilter>('all')
   const [category, setCategory] = useState<string>('All')
@@ -234,69 +355,9 @@ function LinksBrowser() {
       </p>
 
       <div className="mt-4 grid gap-4 md:grid-cols-2">
-        {filtered.map((r) => {
-          const isGeneral = r.cert === 'general'
-          const certMeta = isGeneral ? null : CERTIFICATIONS.find((c) => c.id === r.cert)
-          return (
-            <a
-              key={r.id}
-              href={r.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="card group flex flex-col p-5 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-cardHover"
-            >
-              <div className="flex items-center gap-2">
-                <span className="chip bg-cream-200 text-ink-600 dark:bg-ink-800 dark:text-ink-200">
-                  {r.category}
-                </span>
-                {r.official && (
-                  <span className="chip bg-moss-400/10 text-moss-600 dark:text-moss-400">Official</span>
-                )}
-                {isGeneral ? (
-                  <span className="chip bg-ink-100 text-ink-500 dark:bg-ink-800 dark:text-ink-300">All tracks</span>
-                ) : certMeta ? (
-                  <span
-                    className={`chip ${
-                      certMeta.accent === 'clay'
-                        ? 'bg-clay-100 text-clay-700 dark:bg-clay-900/40 dark:text-clay-300'
-                        : 'bg-moss-400/10 text-moss-600 dark:text-moss-400'
-                    }`}
-                  >
-                    {certMeta.code}
-                  </span>
-                ) : null}
-              </div>
-
-              <h3 className="mt-3 flex items-start justify-between gap-2 font-serif text-lg font-bold leading-snug text-ink-900 group-hover:text-clay-600 dark:text-cream-50 dark:group-hover:text-clay-300">
-                {r.title}
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  className="mt-1 h-4 w-4 shrink-0 text-ink-300 transition-all group-hover:translate-x-0.5 group-hover:text-clay-500 dark:text-ink-500"
-                >
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M7 17 17 7M9 7h8v8" />
-                </svg>
-              </h3>
-
-              <p className="mt-2 flex-1 text-sm leading-relaxed text-ink-600 dark:text-ink-300">
-                {r.description}
-              </p>
-
-              <div className="mt-4 flex flex-wrap gap-1.5">
-                {r.tags.map((t) => (
-                  <span
-                    key={t}
-                    className="rounded-md bg-cream-200 px-2 py-0.5 text-[11px] font-medium text-ink-500 dark:bg-ink-800 dark:text-ink-300"
-                  >
-                    #{t}
-                  </span>
-                ))}
-              </div>
-            </a>
-          )
-        })}
+        {filtered.map((r) => (
+          <ResourceCard key={r.id} r={r} saved={isSaved(r.id)} onToggle={toggle} />
+        ))}
       </div>
 
       {filtered.length === 0 && (
@@ -313,13 +374,15 @@ function LinksBrowser() {
 
 export function Resources() {
   const [tab, setTab] = useState<Tab>('links')
+  const { saved, toggle, isSaved } = useSavedResources()
+  const savedResources = RESOURCES.filter((r) => saved.includes(r.id))
 
   return (
     <div className="container-page py-14 sm:py-16">
       <SectionHeading
         eyebrow="Curated links & study notes"
         title="Resources"
-        subtitle="Official docs, useful reading, and the concept notes I kept returning to. Pair the notes with the mock exams — these are the ‘why’, the questions are the ‘can you apply it’."
+        subtitle="Official docs, useful reading, and the concept notes I kept returning to. Star the resources you care about and filter to your Saved tab when time is short — pair the notes with the mock exams."
       />
 
       <div className="mt-8 flex flex-wrap gap-2">
@@ -334,12 +397,30 @@ export function Resources() {
             }`}
           >
             {t.label}
+            {t.id === 'saved' && saved.length > 0 ? ` (${saved.length})` : ''}
           </button>
         ))}
       </div>
 
       <div className="mt-8">
-        {tab === 'links' && <LinksBrowser />}
+        {tab === 'links' && <LinksBrowser isSaved={isSaved} toggle={toggle} />}
+
+        {tab === 'saved' && (
+          savedResources.length > 0 ? (
+            <div className="mt-2 grid gap-4 md:grid-cols-2">
+              {savedResources.map((r) => (
+                <ResourceCard key={r.id} r={r} saved={isSaved(r.id)} onToggle={toggle} />
+              ))}
+            </div>
+          ) : (
+            <div className="card mt-2 p-10 text-center">
+              <p className="font-serif text-lg font-bold text-ink-800 dark:text-cream-50">Nothing saved yet</p>
+              <p className="mt-1 text-sm text-ink-500 dark:text-ink-300">
+                Tap the star on any resource to save it here. Your saved list is stored on this device.
+              </p>
+            </div>
+          )
+        )}
 
         {tab === 'concepts' && (
           <div className="grid gap-4 md:grid-cols-2">
