@@ -25,26 +25,27 @@ export function Navbar() {
       <nav className="container-page flex h-16 items-center justify-between gap-4">
         <Logo />
 
-        <div className="hidden items-center gap-1 md:flex">
-          {NAV_ITEMS.map((item) => (
-            <NavLink
-              key={item.to}
-              to={item.to}
-              end={item.to === '/'}
-              className={({ isActive }) =>
-                `rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
-                  isActive
-                    ? 'bg-clay-100 text-clay-800 dark:bg-clay-900/40 dark:text-clay-200'
-                    : 'text-ink-600 hover:bg-ink-100 hover:text-ink-900 dark:text-ink-300 dark:hover:bg-ink-800 dark:hover:text-cream-50'
-                }`
-              }
-            >
-              {item.label}
-            </NavLink>
-          ))}
-        </div>
+        <div className="flex items-center gap-4">
+          <div className="hidden items-center gap-1 md:flex">
+            {NAV_ITEMS.map((item) => (
+              <NavLink
+                key={item.to}
+                to={item.to}
+                end={item.to === '/'}
+                className={({ isActive }) =>
+                  `rounded-lg px-3 py-2 text-sm font-medium transition-colors ${
+                    isActive
+                      ? 'bg-clay-100 text-clay-800 dark:bg-clay-900/40 dark:text-clay-200'
+                      : 'text-ink-600 hover:bg-ink-100 hover:text-ink-900 dark:text-ink-300 dark:hover:bg-ink-800 dark:hover:text-cream-50'
+                  }`
+                }
+              >
+                {item.label}
+              </NavLink>
+            ))}
+          </div>
 
-        <div className="flex items-center gap-2">
+          <div className="flex items-center gap-2">
           <button
             onClick={toggleTheme}
             aria-label={theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'}
@@ -75,6 +76,7 @@ export function Navbar() {
               )}
             </svg>
           </button>
+        </div>
         </div>
       </nav>
 
