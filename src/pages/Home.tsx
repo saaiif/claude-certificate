@@ -57,8 +57,9 @@ export function Home() {
             <p className="mt-4 max-w-xl text-lg leading-relaxed text-ink-600 dark:text-ink-300">
               I passed the <strong>Architect Professional (CCAR-P)</strong>,{' '}
               <strong>Architect Foundations (CCAR-F)</strong>, and{' '}
-              <strong>Developer Foundations (CCDV-F)</strong> exams. This site is everything that helped —
-              sample mock questions, resources, and hard-won tips for my teammates.
+              <strong>Developer Foundations (CCDV-F)</strong> exams. I&apos;ve compiled everything that helped
+              me — mock questions, curated resources, and tips — for anyone planning to take these certification
+              exams.
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
               <Link to="/mock-exams" className="btn-accent">

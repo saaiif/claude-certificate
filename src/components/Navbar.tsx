@@ -9,6 +9,7 @@ const NAV_ITEMS = [
   { to: '/resources', label: 'Resources' },
   { to: '/tips', label: 'Tips & Strategy' },
   { to: '/my-journey', label: 'My Journey' },
+  { to: '/study-guide', label: 'Study Guide' },
 ]
 
 export function Navbar() {

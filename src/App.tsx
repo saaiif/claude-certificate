@@ -7,6 +7,7 @@ import { MockExam } from './pages/MockExam'
 import { Resources } from './pages/Resources'
 import { Tips } from './pages/Tips'
 import { MyJourney } from './pages/MyJourney'
+import { StudyGuide } from './pages/StudyGuide'
 import { NotFound } from './pages/NotFound'
 
 function ScrollToTop() {
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/resources" element={<Resources />} />
           <Route path="/tips" element={<Tips />} />
           <Route path="/my-journey" element={<MyJourney />} />
+          <Route path="/study-guide" element={<StudyGuide />} />
           <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>

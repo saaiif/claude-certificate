@@ -25,7 +25,7 @@ export function MyJourney() {
 
       <section className="container-page py-14 sm:py-16">
         <div className="relative space-y-10 border-l-2 border-clay-100 pl-8 sm:pl-10 dark:border-clay-900/50">
-          {JOURNEY_CHAPTERS.map((chapter, i) => (
+          {JOURNEY_CHAPTERS.filter((c) => !c.hidden).map((chapter, i) => (
             <article key={chapter.id} className="relative animate-fade-up" style={{ animationDelay: `${i * 80}ms` }}>
               <span className="absolute -left-[41px] top-1.5 flex h-6 w-6 items-center justify-center rounded-full bg-clay-500 text-[11px] font-bold text-white ring-4 ring-cream-100 sm:-left-[49px] dark:ring-ink-950">
                 {i + 1}

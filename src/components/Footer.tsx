@@ -7,7 +7,7 @@ export function Footer() {
         <div>
           <p className="font-serif text-lg font-bold text-ink-900 dark:text-cream-50">Claude Cert Prep</p>
           <p className="mt-1 text-sm text-ink-500 dark:text-ink-300">
-            Built to help my teammates crack the Claude certification track.
+            Built for my teammates and anyone preparing for the Claude certification exams.
           </p>
         </div>
         <div className="flex flex-col items-center gap-2 text-sm text-ink-500 sm:items-end dark:text-ink-300">
@@ -24,9 +24,12 @@ export function Footer() {
             <Link to="/my-journey" className="hover:text-clay-600 dark:hover:text-clay-300">
               My Journey
             </Link>
+            <Link to="/study-guide" className="hover:text-clay-600 dark:hover:text-clay-300">
+              Study Guide
+            </Link>
           </div>
           <p className="text-xs text-ink-400 dark:text-ink-400">
-            Not affiliated with Anthropic. All content is my personal prep material.
+            Independent study resource. Not affiliated with Anthropic. Content based on public exam guides and personal experience.
           </p>
         </div>
       </div>

@@ -57,6 +57,7 @@ export interface Tip {
   category: TipCategory
   title: string
   body: string
+  ref?: string
 }
 
 export interface DomainResult {

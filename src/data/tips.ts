@@ -12,8 +12,8 @@ export const TIPS: Tip[] = [
     id: 'tip-build-dont-read',
     cert: 'general',
     category: 'Study',
-    title: 'Build real systems, not just notes',
-    body: 'These exams test judgment, not recall. I built a small RAG pipeline, an MCP server, and a Claude Code workflow — and every one of those labs showed up on the exam. Twenty minutes of hands-on beats an hour of note-taking.',
+    title: 'Try things out, don\'t just read',
+    body: 'These exams test judgment, not recall. I tried the concepts in side projects and daily work — designing prompts for code reviews, sketching architectures, planning RAG setups — and those quick experiments stuck way better than notes. A little hands-on beats a lot of reading.',
   },
   {
     id: 'tip-academy-map',
@@ -21,6 +21,13 @@ export const TIPS: Tip[] = [
     category: 'Study',
     title: 'Map the Academy courses to the blueprint',
     body: "Anthropic's Academy courses line up almost 1:1 with the exam domains. For Developer Foundations the official prep path runs about 13 hours across five modules. Course → domain → objective is the fastest mapping I found.",
+  },
+  {
+    id: 'tip-ccar-f-retry',
+    cert: 'ccar-f',
+    category: 'Strategy',
+    title: 'CCAR-F: it\'s okay to fail the first time',
+    body: 'I failed CCAR-F on my first attempt. The scenario pool and heavy orchestration/Claude Code weight caught me off guard. On the retake, I focused purely on the six scenarios and the 47% weight on orchestration + Claude Code, and passed. If you miss it the first time, don\'t panic — just drill the pool and the weights.',
   },
   {
     id: 'tip-ccar-p-format',
@@ -84,6 +91,7 @@ export const TIPS: Tip[] = [
     category: 'Gotchas',
     title: 'Retakes have waiting periods',
     body: 'Failed attempts lock you out for 14, then 30, then 90 days, capped at four attempts in a rolling twelve months — each at full fee. Treat a mock failure as a signal and fix the domain gaps before rebooking, not after.',
+    ref: 'https://anthropic-partners.skilljar.com/page/faq-certifications',
   },
   {
     id: 'tip-validity',
