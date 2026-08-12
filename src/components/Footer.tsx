@@ -24,9 +24,6 @@ export function Footer() {
             <Link to="/my-journey" className="hover:text-clay-600 dark:hover:text-clay-300">
               My Journey
             </Link>
-            <Link to="/study-guide" className="hover:text-clay-600 dark:hover:text-clay-300">
-              Study Guide
-            </Link>
           </div>
         </div>
       </div>
