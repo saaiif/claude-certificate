@@ -11,7 +11,7 @@ export function Footer() {
           </p>
         </div>
         <div className="flex flex-col items-center gap-2 text-sm text-ink-500 sm:items-end dark:text-ink-300">
-          <div className="flex gap-5">
+          <div className="flex flex-wrap justify-center gap-5">
             <Link to="/mock-exams" className="hover:text-clay-600 dark:hover:text-clay-300">
               Mock Exams
             </Link>
@@ -28,10 +28,12 @@ export function Footer() {
               Study Guide
             </Link>
           </div>
-          <p className="text-xs text-ink-400 dark:text-ink-400">
-            Independent study resource. Not affiliated with Anthropic. Content based on public exam guides and personal experience.
-          </p>
         </div>
+      </div>
+      <div className="border-t border-ink-100 dark:border-ink-800">
+        <p className="container-page py-5 text-center text-xs text-ink-400 dark:text-ink-400">
+          Independent study resource. Not affiliated with Anthropic. Content based on public exam guides and personal experience.
+        </p>
       </div>
     </footer>
   )
