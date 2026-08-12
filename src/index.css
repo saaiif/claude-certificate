@@ -1,0 +1,51 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-cream-100 text-ink-800 antialiased dark:bg-ink-950 dark:text-ink-100;
+  }
+
+  ::selection {
+    @apply bg-clay-200 text-ink-900 dark:bg-clay-700 dark:text-cream-50;
+  }
+}
+
+@layer components {
+  .container-page {
+    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay-500;
+  }
+
+  .btn-primary {
+    @apply btn bg-ink-900 text-cream-50 hover:bg-ink-800 dark:bg-cream-50 dark:text-ink-900 dark:hover:bg-cream-200;
+  }
+
+  .btn-accent {
+    @apply btn bg-clay-500 text-white hover:bg-clay-600;
+  }
+
+  .btn-ghost {
+    @apply btn border border-ink-200 bg-white text-ink-800 hover:border-ink-300 hover:bg-cream-50 dark:border-ink-700 dark:bg-ink-900 dark:text-ink-100 dark:hover:bg-ink-800;
+  }
+
+  .card {
+    @apply rounded-2xl border border-ink-100 bg-white shadow-card dark:border-ink-800 dark:bg-ink-900;
+  }
+
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold;
+  }
+
+  .input {
+    @apply w-full rounded-xl border border-ink-200 bg-white px-4 py-2.5 text-sm text-ink-800 placeholder-ink-400 focus:border-clay-400 focus:outline-none focus:ring-2 focus:ring-clay-200 dark:border-ink-700 dark:bg-ink-900 dark:text-ink-100 dark:focus:ring-clay-800;
+  }
+}
