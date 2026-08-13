@@ -95,17 +95,6 @@ export const RESOURCES: Resource[] = [
     important: true,
   },
   {
-    id: 'res-agent-sdk',
-    title: 'Claude Agent SDK',
-    url: 'https://docs.anthropic.com/en/agents-and-tools/agent-sdk/overview',
-    cert: 'ccar-f',
-    category: 'Official Docs',
-    description:
-      'The SDK for building agents — turns, tools, subagents. Directly tested in the Architect Foundations orchestration domain.',
-    tags: ['agents', 'sdk', 'official', 'architect'],
-    official: true,
-  },
-  {
     id: 'res-mcp',
     title: 'Model Context Protocol documentation',
     url: 'https://modelcontextprotocol.io/',
@@ -172,16 +161,6 @@ export const RESOURCES: Resource[] = [
     official: true,
   },
   {
-    id: 'res-rag',
-    title: 'Building Knowledge-Grounded Applications with Claude',
-    url: 'https://www.anthropic.com/engineering/building-knowledge-grounded-applications-with-claude',
-    cert: 'general',
-    category: 'Anthropic Engineering',
-    description: 'Anthropic\u2019s end-to-end RAG walkthrough: chunking, embeddings, retrieval, and grounding.',
-    tags: ['rag', 'retrieval', 'knowledge'],
-    official: true,
-  },
-  {
     id: 'res-claude-101',
     title: 'Academy — Claude 101',
     url: 'https://anthropic.skilljar.com/claude-101',
@@ -190,6 +169,7 @@ export const RESOURCES: Resource[] = [
     description: 'Foundation course on the Claude product surface. A quick, free starting point for every track.',
     tags: ['course', 'free', 'foundation'],
     official: true,
+    important: true,
   },
   {
     id: 'res-platform-101',
@@ -290,6 +270,7 @@ export const RESOURCES: Resource[] = [
     description:
       'Free CCAR-F track: lessons, 250+ practice questions, and a full 60-question timed mock mirroring the blueprint. Start here.',
     tags: ['practice', 'mock', 'free', 'architect'],
+    important: true,
   },
   {
     id: 'res-preporato',
