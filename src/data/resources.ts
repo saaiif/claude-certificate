@@ -309,6 +309,56 @@ export const RESOURCES: Resource[] = [
     description: 'Head-to-head comparison of all four exams so you can pick the track that matches your role.',
     tags: ['comparison', 'choosing', 'guide'],
   },
+  {
+    id: 'res-udemy-ccar-f-exams',
+    title: 'Udemy — CCAR-F practice exams (6 tests)',
+    url: 'https://www.udemy.com/course/claude-certified-architect-foundations-exam-prep/',
+    cert: 'ccar-f',
+    category: 'Practice & Prep',
+    description:
+      'Six full 60-question timed tests (360 questions) mapped to the CCAR-F blueprint, with an explanation for every answer.',
+    tags: ['udemy', 'practice', 'mock', 'architect'],
+  },
+  {
+    id: 'res-udemy-ccar-f-full',
+    title: 'Udemy — CCAR-F Full Prep masterclass',
+    url: 'https://www.udemy.com/course/claude-certified/',
+    cert: 'ccar-f',
+    category: 'Practice & Prep',
+    description:
+      '20-hour walkthrough of all five CCAR-F domains with quizzes, labs, and a full 60-question sample exam.',
+    tags: ['udemy', 'course', 'architect'],
+  },
+  {
+    id: 'res-udemy-ccar-p',
+    title: 'Udemy — CCAR-P Exam Prep',
+    url: 'https://www.udemy.com/course/ccar-p-exam-prep/',
+    cert: 'ccar-p',
+    category: 'Practice & Prep',
+    description:
+      '12.5-hour course built domain by domain on the CCAR-P blueprint, with scenario lessons and full-length practice exams.',
+    tags: ['udemy', 'course', 'professional'],
+  },
+  {
+    id: 'res-td-ccar-p-exams',
+    title: 'Tutorials Dojo — CCAR-P practice exams',
+    url: 'https://portal.tutorialsdojo.com/courses/claude-certified-architect-professional-ccar-p-practice-exams/',
+    cert: 'ccar-p',
+    category: 'Practice & Prep',
+    description:
+      'Timed, review, section-based and randomized test modes with detailed explanations and bonus flashcards.',
+    tags: ['practice', 'mock', 'professional'],
+  },
+  {
+    id: 'res-td-ccdv-f-exams',
+    title: 'Tutorials Dojo — CCDV-F practice exams',
+    url: 'https://portal.tutorialsdojo.com/courses/claude-certified-developer-foundations-ccdv-f-practice-exams/',
+    cert: 'ccdv-f',
+    category: 'Practice & Prep',
+    description:
+      'Practice for the developer track across all eight domains — timed, section-based, and review modes with explanations.',
+    tags: ['practice', 'mock', 'developer'],
+  },
 ]
 
 export const RESOURCE_CATEGORIES = [
