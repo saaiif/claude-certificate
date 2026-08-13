@@ -138,15 +138,15 @@ const CHECKLIST: { group: string; items: string[] }[] = [
 ]
 
 const REFS: { title: string; url: string; note: string }[] = [
-  { title: 'Claude Code — Settings', url: 'https://code.claude.com/docs/en/settings', note: 'Configure project and user settings.' },
-  { title: 'Claude Code — Permissions', url: 'https://code.claude.com/docs/en/permissions', note: 'Scope what the agent can do.' },
-  { title: 'Claude Code — MCP', url: 'https://code.claude.com/docs/en/mcp', note: 'Connect tools and data sources via MCP.' },
-  { title: 'Claude Code — Sub-agents', url: 'https://code.claude.com/docs/en/sub-agents', note: 'Define focused, reusable agents.' },
-  { title: 'Claude Code — Hooks', url: 'https://code.claude.com/docs/en/hooks', note: 'Automate actions on lifecycle events.' },
-  { title: 'Claude API — Tool use', url: 'https://platform.claude.com/docs/en/tool-use', note: 'Give Claude callable tools.' },
-  { title: 'Claude API — Structured outputs', url: 'https://platform.claude.com/docs/en/structured-outputs', note: 'Constrain responses to a schema.' },
-  { title: 'Claude API — Streaming', url: 'https://platform.claude.com/docs/en/streaming', note: 'Lower perceived latency.' },
-  { title: 'Claude API — Prompt caching', url: 'https://platform.claude.com/docs/en/prompt-caching', note: 'Cut cost and TTFT on stable prefixes.' },
+  { title: 'Claude Code — Settings', url: 'https://docs.anthropic.com/en/docs/claude-code/settings', note: 'Configure project and user settings.' },
+  { title: 'Claude Code — Permissions', url: 'https://docs.anthropic.com/en/docs/claude-code/permissions', note: 'Scope what the agent can do.' },
+  { title: 'Claude Code — MCP', url: 'https://docs.anthropic.com/en/docs/claude-code/mcp', note: 'Connect tools and data sources via MCP.' },
+  { title: 'Claude Code — Sub-agents', url: 'https://docs.anthropic.com/en/docs/claude-code/sub-agents', note: 'Define focused, reusable agents.' },
+  { title: 'Claude Code — Hooks', url: 'https://docs.anthropic.com/en/docs/claude-code/hooks', note: 'Automate actions on lifecycle events.' },
+  { title: 'Claude API — Tool use', url: 'https://platform.claude.com/docs/en/agents-and-tools/tool-use/overview', note: 'Give Claude callable tools.' },
+  { title: 'Claude API — Structured outputs', url: 'https://platform.claude.com/docs/en/build-with-claude/structured-outputs', note: 'Constrain responses to a schema.' },
+  { title: 'Claude API — Streaming', url: 'https://platform.claude.com/docs/en/build-with-claude/streaming', note: 'Lower perceived latency.' },
+  { title: 'Claude API — Prompt caching', url: 'https://platform.claude.com/docs/en/build-with-claude/prompt-caching', note: 'Cut cost and TTFT on stable prefixes.' },
 ]
 
 const CERT_FILTERS: { value: CertFilter; label: string }[] = [

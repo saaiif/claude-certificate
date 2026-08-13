@@ -18,6 +18,18 @@ function shuffle<T>(list: T[]): T[] {
   return arr
 }
 
+function prepareQuestion(q: Question): Question {
+  const order = shuffle(q.options.map((_, i) => i))
+  return {
+    ...q,
+    options: order.map((i) => q.options[i]),
+    correct: order
+      .map((origIdx, newIdx) => (q.correct.includes(origIdx) ? newIdx : -1))
+      .filter((idx) => idx >= 0)
+      .sort((a, b) => a - b),
+  }
+}
+
 function formatTime(totalSeconds: number): string {
   const m = Math.floor(totalSeconds / 60)
   const s = Math.round(totalSeconds % 60)
@@ -43,6 +55,7 @@ export function MockExam() {
   const [answers, setAnswers] = useState<Record<string, number[]>>({})
   const [revealed, setRevealed] = useState<string[]>([])
   const [elapsed, setElapsed] = useState(0)
+  const [emptyModal, setEmptyModal] = useState(false)
   const startRef = useRef(0)
   const finishedRef = useRef(false)
 
@@ -81,11 +94,12 @@ export function MockExam() {
         e.preventDefault()
         const revealedNow = revealed.includes(currentQuestion.id)
         if (!revealedNow) {
-          const selected = answers[currentQuestion.id] ?? []
-          if (selected.length > 0) submit()
+          submit()
         } else {
           goNext()
         }
+      } else if (e.key === 'Escape') {
+        setEmptyModal(false)
       } else if (e.key === 'n' || e.key === 'N') {
         if (revealed.includes(currentQuestion.id)) goNext()
       }
@@ -97,7 +111,7 @@ export function MockExam() {
   if (!cert || !certId) return <Navigate to="/mock-exams" replace />
 
   const start = (shuffleOrder: boolean) => {
-    const base = getQuestionsByCert(cert.id)
+    const base = getQuestionsByCert(cert.id).map(prepareQuestion)
     setQuestions(shuffleOrder ? shuffle(base) : base)
     setAnswers({})
     setRevealed([])
@@ -124,7 +138,10 @@ export function MockExam() {
   const submit = () => {
     if (!currentQuestion) return
     const selected = answers[currentQuestion.id] ?? []
-    if (selected.length === 0) return
+    if (selected.length === 0) {
+      setEmptyModal(true)
+      return
+    }
     if (!revealed.includes(currentQuestion.id)) {
       setRevealed((r) => [...r, currentQuestion.id])
     }
@@ -195,6 +212,36 @@ export function MockExam() {
           onRetry={() => start(true)}
           onBackToAll={() => setPhase('intro')}
         />
+      )}
+
+      {emptyModal && (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center bg-ink-950/60 p-4"
+          onClick={() => setEmptyModal(false)}
+        >
+          <div
+            role="dialog"
+            aria-modal="true"
+            aria-label="Select an answer first"
+            className="card w-full max-w-sm animate-pop-in p-6 text-center"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <span className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-clay-100 text-clay-600 dark:bg-clay-900/40 dark:text-clay-300">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-6 w-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v4m0 4h.01M12 3a9 9 0 1 0 0 18 9 9 0 0 0 0-18Z" />
+              </svg>
+            </span>
+            <h3 className="mt-4 font-serif text-lg font-bold text-ink-900 dark:text-cream-50">
+              Select an answer first
+            </h3>
+            <p className="mt-2 text-sm leading-relaxed text-ink-600 dark:text-ink-300">
+              Pick at least one option before submitting this question.
+            </p>
+            <button onClick={() => setEmptyModal(false)} className="btn-primary mt-5 w-full">
+              Got it
+            </button>
+          </div>
+        </div>
       )}
     </div>
   )
@@ -439,7 +486,7 @@ function QuestionPanel({
 
         {!revealed && (
           <div className="mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <button onClick={onSubmit} disabled={selected.length === 0} className="btn-primary disabled:cursor-not-allowed disabled:opacity-40">
+            <button onClick={onSubmit} className="btn-primary">
               Submit answer
             </button>
             <p className="text-xs text-ink-400">
