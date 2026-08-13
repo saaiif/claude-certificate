@@ -55,7 +55,7 @@ export function MockExam() {
   const [answers, setAnswers] = useState<Record<string, number[]>>({})
   const [revealed, setRevealed] = useState<string[]>([])
   const [elapsed, setElapsed] = useState(0)
-  const [emptyModal, setEmptyModal] = useState(false)
+  const [submitAlert, setSubmitAlert] = useState<{ required: number; selected: number } | null>(null)
   const startRef = useRef(0)
   const finishedRef = useRef(false)
 
@@ -99,7 +99,7 @@ export function MockExam() {
           goNext()
         }
       } else if (e.key === 'Escape') {
-        setEmptyModal(false)
+        setSubmitAlert(null)
       } else if (e.key === 'n' || e.key === 'N') {
         if (revealed.includes(currentQuestion.id)) goNext()
       }
@@ -138,8 +138,13 @@ export function MockExam() {
   const submit = () => {
     if (!currentQuestion) return
     const selected = answers[currentQuestion.id] ?? []
+    const required = currentQuestion.correct.length
     if (selected.length === 0) {
-      setEmptyModal(true)
+      setSubmitAlert({ required, selected: 0 })
+      return
+    }
+    if (required > 1 && selected.length !== required) {
+      setSubmitAlert({ required, selected: selected.length })
       return
     }
     if (!revealed.includes(currentQuestion.id)) {
@@ -214,15 +219,15 @@ export function MockExam() {
         />
       )}
 
-      {emptyModal && (
+      {submitAlert && (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center bg-ink-950/60 p-4"
-          onClick={() => setEmptyModal(false)}
+          onClick={() => setSubmitAlert(null)}
         >
           <div
             role="dialog"
             aria-modal="true"
-            aria-label="Select an answer first"
+            aria-label={submitAlert.selected === 0 ? 'Select an answer first' : 'Selection incomplete'}
             className="card w-full max-w-sm animate-pop-in p-6 text-center"
             onClick={(e) => e.stopPropagation()}
           >
@@ -232,14 +237,46 @@ export function MockExam() {
               </svg>
             </span>
             <h3 className="mt-4 font-serif text-lg font-bold text-ink-900 dark:text-cream-50">
-              Select an answer first
+              {submitAlert.selected === 0 ? 'Select an answer first' : 'Selection incomplete'}
             </h3>
-            <p className="mt-2 text-sm leading-relaxed text-ink-600 dark:text-ink-300">
-              Pick at least one option before submitting this question.
-            </p>
-            <button onClick={() => setEmptyModal(false)} className="btn-primary mt-5 w-full">
-              Got it
-            </button>
+            {submitAlert.selected === 0 ? (
+              submitAlert.required > 1 ? (
+                <p className="mt-2 text-sm leading-relaxed text-ink-600 dark:text-ink-300">
+                  This question asks you to select {submitAlert.required} answers. Pick them before submitting.
+                </p>
+              ) : (
+                <p className="mt-2 text-sm leading-relaxed text-ink-600 dark:text-ink-300">
+                  Pick at least one option before submitting this question.
+                </p>
+              )
+            ) : (
+              <p className="mt-2 text-sm leading-relaxed text-ink-600 dark:text-ink-300">
+                This question asks you to select exactly {submitAlert.required} answers — you&apos;ve selected{' '}
+                {submitAlert.selected}. Submit anyway?
+              </p>
+            )}
+            {submitAlert.selected === 0 ? (
+              <button onClick={() => setSubmitAlert(null)} className="btn-primary mt-5 w-full">
+                Got it
+              </button>
+            ) : (
+              <div className="mt-5 flex flex-col gap-2 sm:flex-row">
+                <button onClick={() => setSubmitAlert(null)} className="btn-ghost flex-1">
+                  Keep answering
+                </button>
+                <button
+                  onClick={() => {
+                    if (currentQuestion && !revealed.includes(currentQuestion.id)) {
+                      setRevealed((r) => [...r, currentQuestion.id])
+                    }
+                    setSubmitAlert(null)
+                  }}
+                  className="btn-accent flex-1"
+                >
+                  Submit anyway
+                </button>
+              </div>
+            )}
           </div>
         </div>
       )}
