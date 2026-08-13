@@ -8,7 +8,6 @@ const NAV_ITEMS = [
   { to: '/mock-exams', label: 'Mock Exams' },
   { to: '/resources', label: 'Resources' },
   { to: '/tips', label: 'Tips & Strategy' },
-  { to: '/my-journey', label: 'My Journey' },
 ]
 
 export function Navbar() {

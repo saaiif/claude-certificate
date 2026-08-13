@@ -68,9 +68,6 @@ export function Home() {
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14m-6-6 6 6-6 6" />
                 </svg>
               </Link>
-              <Link to="/my-journey" className="btn-ghost">
-                Read my journey
-              </Link>
             </div>
             <div className="mt-10 grid max-w-md grid-cols-2 gap-4 sm:grid-cols-4">
               {JOURNEY_STATS.map((s) => (

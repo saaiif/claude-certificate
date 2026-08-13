@@ -22,9 +22,6 @@ export function Footer() {
             <Link to="/tips" className="hover:text-clay-600 dark:hover:text-clay-300">
               Tips
             </Link>
-            <Link to="/my-journey" className="hover:text-clay-600 dark:hover:text-clay-300">
-              My Journey
-            </Link>
           </div>
         </div>
       </div>
