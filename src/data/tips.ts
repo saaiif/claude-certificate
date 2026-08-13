@@ -12,8 +12,8 @@ export const TIPS: Tip[] = [
     id: 'tip-build-dont-read',
     cert: 'general',
     category: 'Study',
-    title: 'Try things out, don\'t just read',
-    body: 'These exams test judgment, not recall. I tried the concepts in side projects and daily work — designing prompts for code reviews, sketching architectures, planning RAG setups — and those quick experiments stuck way better than notes. A little hands-on beats a lot of reading.',
+    title: 'Practise, don\'t just read',
+    body: 'These exams test judgment, not recall. I got the most out of the Academy courses and the official docs — self-quizzing and spaced repetition stuck way better than re-reading notes. A little practice beats a lot of reading.',
   },
   {
     id: 'tip-academy-map',

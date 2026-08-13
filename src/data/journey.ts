@@ -28,7 +28,7 @@ export const JOURNEY_CHAPTERS: JourneyChapter[] = [
       'Write a few mock questions for the topics that feel fuzzy; self-quizzing beats re-reading.',
       'Practice the multiple-response format a bit — that format trips people up.',
     ],
-    body: 'I mixed light reading with quick hands-on tries. The goal wasn\'t to master everything — just to be comfortable enough that the exam scenarios felt familiar.',
+    body: 'I kept it simple — light reading plus the free Academy courses and mocks. The goal wasn\'t to master everything — just to be comfortable enough that the exam scenarios felt familiar.',
   },
   {
     id: 'surprised',
@@ -36,11 +36,11 @@ export const JOURNEY_CHAPTERS: JourneyChapter[] = [
     title: 'What surprised me',
     points: [
       'CCAR-F leans hard on orchestration and Claude Code — together ~47%. It draws from a known scenario pool (4 of 6 scenarios), so the pool tells you what to prep.',
-      'CCDV-F is about a third applications & integration — retries, streaming, tool schemas. Pure API hands-on stuff.',
+      'CCDV-F is about a third applications & integration — retries, streaming, tool schemas. Expect API-focused questions there.',
       'CCAR-P has no official mock. ~25% multiple-response, plus dropdown scenario-matching items you don\'t see elsewhere.',
       'The questions test trade-off reasoning, not fact recall. Most scenarios have two defensible answers; the right one matches the stated requirements.',
     ],
-    body: 'I expected more fact recall and got more "here\'s a scenario, pick the right trade-off." If you\'ve tinkered with the platform a bit, the scenarios click faster.',
+    body: 'I expected more fact recall and got more "here\'s a scenario, pick the right trade-off." The more familiar you are with the platform from the docs and Academy courses, the faster the scenarios click.',
   },
   {
     id: 'differently',
@@ -50,9 +50,9 @@ export const JOURNEY_CHAPTERS: JourneyChapter[] = [
       'Start with the blueprint before exploring other content.',
       'Book the exam slot early, so studying has a clear deadline.',
       'Practise the multiple-response format from the beginning.',
-      'Spend more time writing evaluation metrics while building practice systems — the evaluation domain rewards precise metrics.',
+      'Spend more time writing evaluation metrics — the evaluation domain rewards precise metrics.',
     ],
-    body: 'Overall, I would keep the same balance of building and studying. Hands-on practice made the exam scenarios feel familiar.',
+    body: 'Overall, I would keep the same balance of mocks and studying. Repetition made the exam scenarios feel familiar.',
   },
   {
     id: 'first-two-weeks',
@@ -60,9 +60,9 @@ export const JOURNEY_CHAPTERS: JourneyChapter[] = [
     title: 'A concrete plan for your first two weeks',
     points: [
       'Week 1, day 1: read the exam guide for your track and note the domain weights.',
-      'Week 1: take one Academy course per study session and build the smallest exercise that applies it.',
+      'Week 1: take one Academy course per study session and test yourself on what it covered.',
       'Week 2: test yourself against the blueprint objectives and track the domains where you struggle.',
-      'Week 2: build your first MCP server or Claude Code workflow and commit it to git.',
+      'Week 2: read the official MCP and Claude Code docs — the examples are worth studying.',
     ],
     body: 'After two weeks you will know where you stand and what to focus on next.',
   },
